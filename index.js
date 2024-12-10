@@ -12,17 +12,9 @@ const userRouter = require('./routes/user.route');
 const authUserTask = require('./middlewares/authUserTask.middleware');
 const productRouter = require('./routes/product.route');
 
-
-
-// app.use(cors({
-//     origin: ['http://localhost:5173', 'https://66d9e954b00b1b4ba1d32468--meek-pavlova-b4e4d3.netlify.app'],
-//     methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH'], 
-//     credentials: true, 
-// }))
-
 app.use(cors(
     {
-        origin: ['http://localhost:5173','https://admirable-boba-e629bc.netlify.app'],
+        origin: ['http://localhost:5173','https://warm-figolla-ad3dbf.netlify.app'],
         methods: ['GET', 'HEAD', 'PUT', 'PATCH',' POST', 'DELETE','POST'],
         preflightContinue: false,
         optionsSuccessStatus: 200,
