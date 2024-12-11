@@ -41,6 +41,9 @@ productRouter.get('/', async (req, res) => {
         }
         const totalProducts = await productModel.countDocuments(filter);
         console.log(`products getting successfully!`)
+        console.log({
+            products
+        })
         res.status(200).json({
             products,
             totalPages: Math.ceil(totalProducts / limit),
