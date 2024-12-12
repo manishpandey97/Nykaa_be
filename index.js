@@ -12,14 +12,28 @@ const userRouter = require('./routes/user.route');
 const authUserTask = require('./middlewares/authUserTask.middleware');
 const productRouter = require('./routes/product.route');
 
-app.use(cors(
-    {
-        origin: ['http://localhost:5173','https://warm-figolla-ad3dbf.netlify.app'],
-        methods: ['GET', 'HEAD', 'PUT', 'PATCH',' POST', 'DELETE','POST'],
-        preflightContinue: false,
-        optionsSuccessStatus: 200,
-        credentials: true,
-    }))
+// app.use(cors(
+//     {
+//         origin: ['http://localhost:5173', 'https://warm-figolla-ad3dbf.netlify.app'],
+//         methods: ['GET', 'HEAD', 'PUT', 'PATCH', ' POST', 'DELETE'],
+//         preflightContinue: false,
+//         optionsSuccessStatus: 200,
+//         credentials: true,
+//     }))
+
+// Allow requests from specific origins
+const corsOptions = {
+    origin: ['http://localhost:5173', 'https://warm-figolla-ad3dbf.netlify.app'],
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    preflightContinue: false,
+    optionsSuccessStatus: 200,
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+// Alternatively, allow all origins (not recommended for production)
+app.use(cors());
 
 
 app.use(express.json())
