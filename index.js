@@ -9,7 +9,7 @@ const userConnect = require('./config/db.user');
 const tokenConnect = require('./config/db.token');
 const productConnect = require('./config/db.product');
 const userRouter = require('./routes/user.route');
-const authUserTask = require('./middlewares/authUserTask.middleware');
+const authUserTask = require('./middlewares/authUser.middleware');
 const productRouter = require('./routes/product.route');
 
 app.use(cors(
@@ -20,20 +20,6 @@ app.use(cors(
         credentials: true,
         optionsSuccessStatus: 200,
     }))
-
-// Allow requests from specific origins
-// const corsOptions = {
-//     origin: ['http://localhost:5173', 'https://warm-figolla-ad3dbf.netlify.app'],
-//     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-//     preflightContinue: false,
-//     optionsSuccessStatus: 200,
-//     credentials: true,
-// };
-
-// app.use(cors(corsOptions));
-
-// Alternatively, allow all origins (not recommended for production)
-// app.use(cors());
 
 
 app.use(express.json())
@@ -48,19 +34,6 @@ app.get('/', (req, res) => {
 
     }
 })
-
-// productRouter.get('/', async (req, res) => {
-//     try {
-//         const products = await productModel.find();
-//         if (!products) {
-//             return res.status(400).send(`products not found`)
-//         }
-//         return res.status(200).json({ 'products': products })
-
-//     } catch (error) {
-//         return res.status(500).send(`products not found and error is :${error}`)
-//     }
-// })
 
 app.listen(PORT, async () => {
     try {

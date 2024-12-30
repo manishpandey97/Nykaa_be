@@ -1,6 +1,5 @@
 const { default: mongoose } = require("mongoose");
 
+const productConnect = mongoose.connect(process.env.URL);
 
-const productConnect=mongoose.connect(process.env.URL);
-
-module.exports=productConnect;
+module.exports = productConnect;

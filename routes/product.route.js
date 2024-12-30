@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const tokenModel = require('../models/token.model');
 const authTaskRole = require('../middlewares/authTaskRole.middleware');
 const userModel = require('../models/user.model');
-const authUserTask = require('../middlewares/authUserTask.middleware');
+const authUserTask = require('../middlewares/authUser.middleware');
 const productModel = require('../models/product.model');
 
 
@@ -41,7 +41,7 @@ productRouter.get('/', async (req, res) => {
         }
         const totalProducts = await productModel.countDocuments(filter);
         console.log(`products getting successfully!`)
-      
+
         res.status(200).json({
             products,
             totalPages: Math.ceil(totalProducts / limit),

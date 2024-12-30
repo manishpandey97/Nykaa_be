@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const userModel = require('../models/user.model');
 const tokenModel = require('../models/token.model');
 
-const authUserTask = (req, res, next) => {
+const authUser = (req, res, next) => {
   const accesstoken = req.headers.authorization?.split(" ")[1];
   try {
     if (!accesstoken) {
@@ -41,4 +41,4 @@ const authUserTask = (req, res, next) => {
   }
 }
 
-module.exports = authUserTask;
+module.exports = authUser;

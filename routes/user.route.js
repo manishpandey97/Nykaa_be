@@ -2,10 +2,7 @@ const express = require('express')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-
-const userModel = require("../models/user.model");
-const tokenModel = require('../models/token.model');
-const authUserRole = require('../middlewares/authUserRole.middleware');
+const authUser = require('../middlewares/authUserRole.middleware');
 
 const userRouter = express.Router()
 
@@ -27,7 +24,7 @@ userRouter.get('/', async (req, res) => {
 
 
 
-userRouter.post('/register', authUserRole(["buyer", "seller", "admin"]), async (req, res) => {
+userRouter.post('/register', async (req, res) => {
     const { name, email, password, role, mobile_no } = req.body;
     try {
         const userExists = await userModel.findOne({ email, mobile_no });
@@ -55,7 +52,7 @@ userRouter.post('/register', authUserRole(["buyer", "seller", "admin"]), async (
     }
 })
 
-userRouter.post('/login', authUserRole(["buyer", "seller", "admin"]), async (req, res) => {
+userRouter.post('/login', async (req, res) => {
     const { email, password, mobile_no } = req.body;
     try {
         const userLogin = await userModel.findOne({ email, mobile_no });
@@ -81,8 +78,10 @@ userRouter.post('/login', authUserRole(["buyer", "seller", "admin"]), async (req
                     "email": userLogin.email, "msG": `user login successfully`, "accesstoken": accesstoken,
                     "refreshtoken": refreshtoken
                 })
-                return res.status(200).json({ "msG": `user login successfully`, "accesstoken": accesstoken,
-                     "refreshtoken": refreshtoken ,"user":userLogin})
+                return res.status(200).json({
+                    "msG": `user login successfully`, "accesstoken": accesstoken,
+                    "refreshtoken": refreshtoken, "user": userLogin
+                })
             }
         })
     } catch (error) {
@@ -112,7 +111,7 @@ userRouter.patch('/update/:id', async (req, res) => {
     }
 })
 
-userRouter.delete('/delete/:id', authUserRole(["buyer", "seller", "admin"]), async (req, res) => {
+userRouter.delete('/delete/:id', async (req, res) => {
     const { id } = req.params
     try {
         const userDelete = await userModel.findById({ _id: id });
@@ -132,7 +131,7 @@ userRouter.delete('/delete/:id', authUserRole(["buyer", "seller", "admin"]), asy
     }
 })
 
-userRouter.post('/logout', authUserRole(["buyer", "seller", "admin"]), async (req, res) => {
+userRouter.post('/logout', async (req, res) => {
     const { email } = req.body;
     const accesstoken = req.headers.authorization?.split(" ")[1];
 
