@@ -9,7 +9,7 @@ const userConnect = require('./config/db.user');
 const tokenConnect = require('./config/db.token');
 const productConnect = require('./config/db.product');
 const userRouter = require('./routes/user.route');
-const authUserTask = require('./middlewares/authUser.middleware');
+const authUser = require('./middlewares/authUser.middleware');
 const productRouter = require('./routes/product.route');
 
 app.use(cors(

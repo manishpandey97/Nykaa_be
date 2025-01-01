@@ -5,9 +5,8 @@ const jwt = require('jsonwebtoken');
 
 
 const tokenModel = require('../models/token.model');
-const authTaskRole = require('../middlewares/authTaskRole.middleware');
 const userModel = require('../models/user.model');
-const authUserTask = require('../middlewares/authUser.middleware');
+const authUser = require('../middlewares/authUser.middleware');
 const productModel = require('../models/product.model');
 
 
@@ -76,7 +75,7 @@ productRouter.get('/:id', async (req, res) => {
 
 
 
-productRouter.get('/userproduct/:id', authUserTask, async (req, res) => {
+productRouter.get('/userproduct/:id', authUser, async (req, res) => {
     const { id } = req.params;
     try {
         const products = await productModel.find({ userId: id });
@@ -95,7 +94,7 @@ productRouter.get('/userproduct/:id', authUserTask, async (req, res) => {
 
 
 
-productRouter.post('/create', [authUserTask, authTaskRole(["seller"])], async (req, res) => {
+productRouter.post('/create', authUser, async (req, res) => {
     const { gender, category, subCategoryCloth, subCategoryShoes, subCategoryHandbag, subCategorySunglass,
         subCategoryDesigners, subCategoryJewelryWatch, subCategoryAccessories, title, brand_name, price, description,
         neck_type, dress_type, color, sleeve_type, material, wash, origin_countery, imgaes,
@@ -126,7 +125,7 @@ productRouter.post('/create', [authUserTask, authTaskRole(["seller"])], async (r
 })
 
 
-productRouter.patch('/update/:id', [authUserTask, authTaskRole(["seller", "admin"])], async (req, res) => {
+productRouter.patch('/update/:id', authUser, async (req, res) => {
     const payload = req.body;
     const userId = req.user._id;
     const productId = req.params.id;
@@ -160,7 +159,7 @@ productRouter.patch('/update/:id', [authUserTask, authTaskRole(["seller", "admin
 })
 
 
-productRouter.delete('/delete/:id', [authUserTask, authTaskRole(["seller", "admin"])], async (req, res) => {
+productRouter.delete('/delete/:id', authUser,  async (req, res) => {
     const productId = req.params.id;
     const userId = req.user._id;
 
